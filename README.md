@@ -19,3 +19,7 @@ An educational app which delivers pastoral resources to schools, with a strong v
 - Delivering assembly scripts
 - Allowing schools to interactively customise resources and assembly rota
 - Allowing assembly script customisation via writing prompts  
+
+## Set up insructions
+- Install dependencies
+   - pip install -r requirements.txt
