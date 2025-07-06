@@ -20,7 +20,7 @@ class Trust(Base):
    postcode = Column(String(12), nullable=False)
    telephone = Column(String(32), nullable=False)
    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-   updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+   updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
    is_active = Column(Boolean, default=True)
    main_contact_name = Column(String(128), nullable=False)
    main_contact_email = Column(String(128), nullable=False)

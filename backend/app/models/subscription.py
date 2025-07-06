@@ -18,7 +18,7 @@ class Subscription(Base):
    end_date = Column(DateTime, nullable=False)
    auto_renew = Column(Boolean, default=False)
    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-   updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+   updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
    is_active = Column(Boolean, default=True)
 
 # EN: Creates subscription_status table
