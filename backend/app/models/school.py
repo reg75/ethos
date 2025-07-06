@@ -49,6 +49,7 @@ class SchoolType(Base):
    name = Column(String(32), unique=True, nullable=False)
    description = Column(String(256))
    is_active = Column(Boolean, default=True)
+   sort_order = Column(Integer, default=0)
 
 
 
