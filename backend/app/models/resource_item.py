@@ -3,21 +3,21 @@ from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from app.db import Base
 
-# EN: Creates resource table
-class Resource(Base):
-   __tablename__ = "resource"
+# EN: Creates resource_item table
+class ResourceItem(Base):
+   __tablename__ = "resource_item"
 
    id = Column(Integer, primary_key=True)
    name = Column(String(256), nullable=False)
    description = Column(String(256))
-   resource_format_id = Column(Integer, ForeignKey('resource_format.id'), nullable=False)
-   resource_format_obj = relationship("ResourceFormat", backref="resources")
-   resource_type_id = Column(Integer, ForeignKey('resource_type.id'), nullable=False)
-   resource_type_obj = relationship("ResourceType", backref="resources")
+   resource_item_format_id = Column(Integer, ForeignKey('resource_item_format.id'), nullable=False)
+   resource_item_format_obj = relationship("ResourceItemFormat", backref="resource_items")
+   resource_item_type_id = Column(Integer, ForeignKey('resource_item_type.id'), nullable=False)
+   resource_item_type_obj = relationship("ResourceItemType", backref="resource_items")
    stage_id = Column(Integer, ForeignKey('stage.id'), nullable=False)
-   stage_obj = relationship("Stage", backref="resources")
+   stage_obj = relationship("Stage", backref="resource_items")
    access_tier_id = Column(Integer, ForeignKey('access_tier.id'), nullable=False)
-   access_tier_obj = relationship("AccessTier", backref="resources")
+   access_tier_obj = relationship("AccessTier", backref="resource_items")
    academic_year_id = Column(Integer, ForeignKey('academic_year.id'))
    week_id = Column(Integer, ForeignKey('week.id'))
    file_url = Column(String(512), nullable=False)
@@ -25,9 +25,9 @@ class Resource(Base):
    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
    is_active = Column(Boolean, default=True)
 
-# EN: Creates resource_type table / BR: 
-class ResourceType(Base):
-   __tablename__ = "resource_type"
+# EN: Creates resource_item_type table / BR: 
+class ResourceItemType(Base):
+   __tablename__ = "resource_item_type"
 
    id = Column(Integer, primary_key=True)
    name = Column(String(64), nullable=False)
@@ -35,9 +35,9 @@ class ResourceType(Base):
    is_active = Column(Boolean, default=True)
    sort_order = Column(Integer, default=0)
 
-# EN: Creates resource_format table
-class ResourceFormat(Base):
-   __tablename__ = "resource_format"
+# EN: Creates resource_item_format table
+class ResourceItemFormat(Base):
+   __tablename__ = "resource_item_format"
 
    id = Column(Integer, primary_key=True)
    name = Column(String(64), nullable=False)
