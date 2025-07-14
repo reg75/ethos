@@ -19,7 +19,7 @@ class School(Base):
    billing_address_1 = Column(String(128), nullable=False)
    billing_address_2 = Column(String(128))
    billing_address_3 = Column(String(128))
-   town_city = Column(String(64), nullable=False)
+   town_or_city = Column(String(64), nullable=False)
    county_id = Column(Integer, ForeignKey('county.id'))
    county_obj = relationship("County", backref="schools")
    country = Column(String(32))
