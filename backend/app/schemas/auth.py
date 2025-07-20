@@ -27,17 +27,6 @@ class AuthLoginRequest(BaseModel):
    email: EmailStr 
    password: str
    
-# EN: Schema for login response  via API
-# BR: Esquema para... através da API
-class AuthLoginResponse(BaseModel):
-
-   access_token: str 
-   token_type: str="bearer"
-   user: AuthMeResponse
-
-   class Config:
-      orm_mode = True
-
 # EN: Schema to get user details via API
 # BR: Esquema para... através da API
 class AuthMeResponse(BaseModel):
@@ -50,6 +39,17 @@ class AuthMeResponse(BaseModel):
    user_role: int
    is_active: bool
    
+   class Config:
+      orm_mode = True
+
+# EN: Schema for login response  via API
+# BR: Esquema para... através da API
+class AuthLoginResponse(BaseModel):
+
+   access_token: str 
+   token_type: str="bearer"
+   user: AuthMeResponse
+
    class Config:
       orm_mode = True
 

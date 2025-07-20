@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, Text, DateTime, DECIMAL, CheckConstraint, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, Text, DateTime, DECIMAL, CheckConstraint, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from app.db import Base
@@ -7,7 +7,7 @@ from app.db import Base
 class School(Base):
    __tablename__ = "school"
 
-   id = Column(Integer, primary_key=True)
+   id = Column(Integer, primary_key=True, index=True)
    trust_id = Column(Integer, ForeignKey('trust.id'))
    trust_obj = relationship("Trust", backref="schools")
    school_type_id = Column(Integer, ForeignKey('school_type.id'))
@@ -20,8 +20,7 @@ class School(Base):
    billing_address_2 = Column(String(128))
    billing_address_3 = Column(String(128))
    town_or_city = Column(String(64), nullable=False)
-   county_id = Column(Integer, ForeignKey('county.id'))
-   county_obj = relationship("County", backref="schools")
+   county = Column(String(64))
    country = Column(String(32))
    postcode = Column(String(12), nullable=False)
    telephone = Column(String(32), nullable=False)

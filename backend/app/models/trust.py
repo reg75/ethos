@@ -16,8 +16,7 @@ class Trust(Base):
    billing_address_2 = Column(String(128))
    billing_address_3 = Column(String(128))
    town_or_city = Column(String(64), nullable=False)
-   county_id = Column(Integer, ForeignKey('county.id'))
-   county_obj = relationship("County", backref="trusts")
+   county = Column(String(64))
    country = Column(String(32))
    postcode = Column(String(12), nullable=False)
    telephone = Column(String(32), nullable=False)
@@ -35,12 +34,3 @@ class Trust(Base):
       CheckConstraint('custom_discount_percent >=0 AND custom_discount_percent <= 100', name='trust_discount_check'),
       UniqueConstraint('name', 'postcode', name="unique_trust_and_postcode")
    )
-
-# EN: Creates county table / BR:
-class County(Base):
-   __tablename__ = "county"
-
-   id = Column(Integer, primary_key=True)
-   name = Column(String(32), unique=True, nullable=False)
-   is_active = Column(Boolean, default=True)
-

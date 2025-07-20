@@ -4,9 +4,9 @@ from datetime import datetime
 
 # EN: Schema for creating new observation via API
 # BR: Esquema para criar uma nova observação através da API
-class Create_Observation(BaseModel):
+class Auth_Register(BaseModel):
 
-   Observation_Teacher: int 
+   school_id: int 
    Observation_Class: str
    Observation_Focus: str
    Observation_Strengths: Optional[str]
