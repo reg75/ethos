@@ -29,11 +29,14 @@ class User(Base):
    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
    is_active = Column(Boolean, default=True)
+   last_login = Column(DateTime, default=None)
+   is_locked = Column(Boolean, default=False)
+   locked_at = Column(DateTime, default=None)
+   lock_reason = Column(String(128))
 
 # EN: Creates title table / BR:
 class Title(Base):
    __tablename__ = "title"
-
 
    id = Column(Integer, primary_key=True)
    name = Column(String(16), unique=True, nullable=False)
@@ -78,3 +81,14 @@ class Token(Base):
    expires_at = Column(DateTime, nullable=False)
    used = Column(Boolean, default=False)
 
+# EN: Creates user_login_attempt table / BR:
+class UserLoginAttempt(Base):
+   __tablename__ = "user_login_attempt"
+
+   id = Column(Integer, primary_key=True)
+   user_id = Column(Integer, ForeignKey('user.id'), nullable=False, index=True)
+   user_obj = relationship("User", backref="login_attempts")
+   attempt_time = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+   success = Column(Boolean, nullable=False)
+   ip_address = Column(String(64))
+   user_agent = Column(String(512))
