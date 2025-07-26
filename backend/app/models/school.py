@@ -11,8 +11,8 @@ class School(Base):
    gov_urn = Column(Integer, unique=True, index=True)
    trust_id = Column(Integer, ForeignKey('trust.id'), index=True)
    trust_obj = relationship("Trust", backref="schools")
-   school_type_id = Column(Integer, ForeignKey('school_type.id'), index=True)
-   school_type_obj = relationship("SchoolType", backref="schools")
+   school_phase_id = Column(Integer, ForeignKey('school_phase.id'), index=True)
+   school_psase_obj = relationship("SchoolPhase", backref="schools")
    name = Column(String(128), nullable=False, index=True)
    address_1 = Column(String(128))
    address_2 = Column(String(128))
@@ -51,8 +51,8 @@ class School(Base):
 )
 
 # EN: Creates school_type table
-class SchoolType(Base):
-   __tablename__ = "school_type"
+class SchoolPhase(Base):
+   __tablename__ = "school_phase"
 
    id = Column(Integer, primary_key=True)
    name = Column(String(32), unique=True, nullable=False)
