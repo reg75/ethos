@@ -1,0 +1,9 @@
+name,description,is_active,sort_order
+Word,Word document,True,1
+PowerPoint,PowerPoint presentation,True,2
+PDF,PDF document,True,3
+Excel,Excel spreadsheet,True,4
+Image,"Image file (e.g. jpg, png)",True,5
+Video,Video file (e.g. mp4),True,6
+Audio,Audio file (e.g. mp3),True,7
+Other,Miscellaneous  or unsupported file types,True,8

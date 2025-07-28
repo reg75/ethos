@@ -1,0 +1,7 @@
+name,description,is_active,sort_order
+pending,Awaiting payment,True,1
+processing,"Payment received, confirming",True,2
+completed,Payment confirmed and settled,True,3
+failed,Payment attempt unsuccessful,True,4
+cancelled,Payment cancelled by user or admin,True,5
+refunded,Payment refunded,True,6

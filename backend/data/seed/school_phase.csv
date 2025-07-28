@@ -1,0 +1,8 @@
+name,description,is_active,sort_order
+Nursery,Pre-reception,True,1
+Primary,Reception to KS3,True,2
+Secondary,KS3 to KS5,True,3
+16 plus,KS5 and college / vocational,True,4
+All-through,Primary to secondary provision,True,5
+Middle school,Primary to KS3,True,6
+Not applicable,Not applicable,True,99

@@ -1,0 +1,8 @@
+name,description,is_active,sort_order
+card,Paid by credit or debit card,True,1
+bank_transfer,Paid via manual or automated bank transfer,True,2
+direct_debit,Recurring direct debit,True,3
+paypal,PayPal payment,True,4
+cheque,Cheque payment (rare but still used by some schools),True,5
+cash,Physical cash (for the brave...),True,6
+other,Anything that doesn’t fit elsewhere,True,99

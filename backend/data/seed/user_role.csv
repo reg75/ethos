@@ -1,0 +1,5 @@
+name,description,is_active,sort_order
+user,Ordinary end-user (e.g. teacher / school staff),True,1
+school_admin,Can manage users in own school,True,2
+business_admin,"Can manage users and school admins across school, billing access",True,3
+business_owner,Superuser access across all data,True,4

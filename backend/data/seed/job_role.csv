@@ -1,0 +1,13 @@
+name,description,is_active,sort_order
+Teacher,,True,1
+Head of Department,,True,2
+Head of Year,,True,3
+Head of House,,True,4
+Assistant Head,,True,5
+Deputy Head,,True,6
+Headteacher,,True,7
+SENCO,,True,8
+Teaching Assistant,,True,9
+Cover Supervisor,,True,10
+Administrator,,True,11
+Other,,True,12

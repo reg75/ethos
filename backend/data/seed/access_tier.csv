@@ -1,0 +1,5 @@
+name,description,is_active,price,sort_order
+Light,Access to pdf resources,True,249,1
+Standard,Access to editable documents,True,399,2
+Flex,Customisable resources,False,599,3
+Premium,"All above, plus assembly scripts",False,899,4
