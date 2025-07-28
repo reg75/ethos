@@ -39,7 +39,7 @@ class InvoiceLineItem(Base):
    amount_due = Column(DECIMAL(10,2), nullable=False)
 
    __table_args__ = (
-      CheckConstraint('applied_discount_percent >=0 AND applied_discount_percent <= 100', name='applied_discount_check')
+      CheckConstraint('applied_discount_percent >=0 AND applied_discount_percent <= 100', name='applied_discount_check'),
    )
 
 # EN: Creates invoice_status table / BR:
