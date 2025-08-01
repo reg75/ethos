@@ -24,7 +24,7 @@ class School(Base):
    telephone = Column(String(32))
    website = Column(String(128))
    billing_contact_id = Column(Integer, ForeignKey('user.id'))
-   billing_contact_obj = relationship("User", backref="billing_schools")
+   billing_contact_obj = relationship("User", foreign_keys=[billing_contact_id], backref="billing_schools")
    billing_email = Column(String(128))
    billing_address_1 = Column(String(128))
    billing_address_2 = Column(String(128))
@@ -46,7 +46,6 @@ class School(Base):
 
    __table_args__ = (
     CheckConstraint('custom_discount_percent >=0 AND custom_discount_percent <= 100', name='school_discount_check'),
-    UniqueConstraint('name', 'postcode', name="unique_school_and_postcode"),
     CheckConstraint('NOT use_trust_billing_address OR trust_id IS NOT NULL', name='trust_billing_requires_trust')
 )
 

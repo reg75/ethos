@@ -17,8 +17,9 @@ class AuthRegisterResponse(BaseModel):
    email: EmailStr 
    school_id: int
    
-   class Config:
-      orm_mode = True
+   model_config = {
+      "from_attributes": True
+   }
 
 # EN: Schema for login request  via API
 # BR: Esquema para... através da API
@@ -39,8 +40,9 @@ class AuthMeResponse(BaseModel):
    user_role: int
    is_active: bool
    
-   class Config:
-      orm_mode = True
+   model_config = {
+      "from_attributes": True
+   }
 
 # EN: Schema for login response  via API
 # BR: Esquema para... através da API
@@ -50,8 +52,9 @@ class AuthLoginResponse(BaseModel):
    token_type: str="bearer"
    user: AuthMeResponse
 
-   class Config:
-      orm_mode = True
+   model_config = {
+      "from_attributes": True
+    }
 
 # EN: Schema to get request logout via API
 # BR: Esquema para... através da API
@@ -59,8 +62,9 @@ class AuthLogoutResponse(BaseModel):
 
    detail: str="Successfully logged out!"
       
-   class Config:
-      orm_mode = True
+   model_config = {
+      "from_attributes": True
+   }
 
 # EN: Schema for password reset request  via API
 # BR: Esquema para... através da API
@@ -74,8 +78,9 @@ class AuthResetResponse(BaseModel):
 
    detail: str="If the email exists, a password reset link has been sent."
 
-   class Config:
-      orm_mode = True
+   model_config = {
+      "from_attributes": True
+   }
 
 # EN: Schema for complete password reset (request)  via API
 # BR: Esquema para... através da API
@@ -93,5 +98,6 @@ class AuthCompleteResetResponse(BaseModel):
    token_type: str="bearer"
    user: AuthMeResponse
 
-   class Config:
-      orm_mode = True
+   model_config = {
+      "from_attributes": True
+   }

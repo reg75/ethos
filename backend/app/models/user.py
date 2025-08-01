@@ -11,7 +11,7 @@ class User(Base):
 
    id = Column(Integer, primary_key=True)
    school_id = Column(Integer, ForeignKey('school.id'), nullable=False)
-   school_obj = relationship("School", backref="users")
+   school_obj = relationship("School", backref="users", foreign_keys=[school_id])
    email = Column(String(128), unique=True, nullable=False)
    phone_1 = Column(String(32))
    phone_2 = Column(String(32))

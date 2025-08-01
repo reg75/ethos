@@ -24,8 +24,9 @@ def create_user(db: Session, user: AuthRegisterRequest):
       # EN: Create user object
       new_user = User(
          email=user.email,
-         password=hashed_pw,
-         school_id=user.school_id
+         password_hash=hashed_pw,
+         school_id=user.school_id,
+         user_role_id=1
          )   
       
       # EN: Add user to database
@@ -33,5 +34,5 @@ def create_user(db: Session, user: AuthRegisterRequest):
       db.commit()
       db.refresh(new_user)
       
-      return {id: new_user.id}
+      return new_user
             

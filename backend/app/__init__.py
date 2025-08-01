@@ -14,7 +14,7 @@ def create_app():
    Base.metadata.create_all(bind=engine)
    
    app.include_router(homepage_router)
-   app.include_router(auth_router, prefix="/auth", tags=["Auth"])
+   app.include_router(auth_router)
    
    app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="static")
    
