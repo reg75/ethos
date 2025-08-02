@@ -29,6 +29,7 @@ class User(Base):
    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
    is_active = Column(Boolean, default=True)
+   is_verified = Column(Boolean, default=False)
    last_login = Column(DateTime, default=None)
    is_locked = Column(Boolean, default=False)
    locked_at = Column(DateTime, default=None)
@@ -92,3 +93,4 @@ class UserLoginAttempt(Base):
    success = Column(Boolean, nullable=False)
    ip_address = Column(String(64))
    user_agent = Column(String(512))
+/
