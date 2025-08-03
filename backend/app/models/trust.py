@@ -3,8 +3,11 @@ from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from app.db import Base
 
-# EN: Creates trust table / BR 
 class Trust(Base):
+   """
+   EN: Represents a trust or multi-academy trust entity in the database.
+   BR: Representa uma entidade de trust (como um grupo escolar) no banco de dados.
+   """
    __tablename__ = "trust"
 
    id = Column(Integer, primary_key=True)
