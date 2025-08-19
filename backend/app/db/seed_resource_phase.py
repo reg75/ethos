@@ -13,21 +13,24 @@ if DATABASE_URL is None:
 
 engine = create_engine(DATABASE_URL)
 
-csv_path = Path(__file__).resolve().parent.parent.parent / "data" / "seed" /"resource_phase.csv"
+def main():
+   csv_path = Path(__file__).resolve().parent.parent.parent / "data" / "seed" /"resource_phase.csv"
 
-resource_phase_df = pd.read_csv(csv_path)
+   resource_phase_df = pd.read_csv(csv_path)
 
-try: 
-   with engine.connect() as connection:
-      with connection.begin():
-         resource_phase_df.to_sql(
-            'resource_phase',
-            con=connection,
-            if_exists='append',
-            index=False
-         )
-   print("Resource phases imported successfully!")
-except SQLAlchemyError as e:
-   print(f"Database error: {e}")
+   try: 
+      with engine.connect() as connection:
+         with connection.begin():
+            resource_phase_df.to_sql(
+               'resource_phase',
+               con=connection,
+               if_exists='append',
+               index=False
+            )
+      print("Resource phases imported successfully!")
+   except SQLAlchemyError as e:
+      print(f"Database error: {e}")
 
+if __name__ == "__main__":
+   main()
 

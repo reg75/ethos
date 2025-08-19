@@ -13,21 +13,23 @@ if DATABASE_URL is None:
 
 engine = create_engine(DATABASE_URL)
 
-csv_path = Path(__file__).resolve().parent.parent.parent / "data" / "seed" /"access_tier.csv"
+def main():
+   csv_path = Path(__file__).resolve().parent.parent.parent / "data" / "seed" /"access_tier.csv"
 
-access_tier_df = pd.read_csv(csv_path)
+   access_tier_df = pd.read_csv(csv_path)
 
-try: 
-   with engine.connect() as connection:
-      with connection.begin():
-         access_tier_df.to_sql(
-            'access_tier',
-            con=connection,
-            if_exists='append',
-            index=False
-         )
-   print("Access tiers imported successfully!")
-except SQLAlchemyError as e:
-   print(f"Database error: {e}")
+   try: 
+      with engine.connect() as connection:
+         with connection.begin():
+            access_tier_df.to_sql(
+               'access_tier',
+               con=connection,
+               if_exists='append',
+               index=False
+            )
+      print("Access tiers imported successfully!")
+   except SQLAlchemyError as e:
+      print(f"Database error: {e}")
 
-
+if __name__ == "__main__":
+   main()

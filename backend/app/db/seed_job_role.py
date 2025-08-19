@@ -13,21 +13,24 @@ if DATABASE_URL is None:
 
 engine = create_engine(DATABASE_URL)
 
-csv_path = Path(__file__).resolve().parent.parent.parent / "data" / "seed" /"job_role.csv"
+def main():
+   csv_path = Path(__file__).resolve().parent.parent.parent / "data" / "seed" /"job_role.csv"
 
-job_role_df = pd.read_csv(csv_path)
+   job_role_df = pd.read_csv(csv_path)
 
-try: 
-   with engine.connect() as connection:
-      with connection.begin():
-         job_role_df.to_sql(
-            'job_role',
-            con=connection,
-            if_exists='append',
-            index=False
-         )
-   print("Job roles imported successfully!")
-except SQLAlchemyError as e:
-   print(f"Database error: {e}")
+   try: 
+      with engine.connect() as connection:
+         with connection.begin():
+            job_role_df.to_sql(
+               'job_role',
+               con=connection,
+               if_exists='append',
+               index=False
+            )
+      print("Job roles imported successfully!")
+   except SQLAlchemyError as e:
+      print(f"Database error: {e}")
 
+if __name__ == "__main__":
+   main()
 

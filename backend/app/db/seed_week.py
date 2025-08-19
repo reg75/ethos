@@ -13,21 +13,25 @@ if DATABASE_URL is None:
 
 engine = create_engine(DATABASE_URL)
 
-csv_path = Path(__file__).resolve().parent.parent.parent / "data" / "seed" /"week.csv"
+def main():
+   csv_path = Path(__file__).resolve().parent.parent.parent / "data" / "seed" /"week.csv"
 
-week_df = pd.read_csv(csv_path)
+   week_df = pd.read_csv(csv_path)
 
-try: 
-   with engine.connect() as connection:
-      with connection.begin():
-         week_df.to_sql(
-            'week',
-            con=connection,
-            if_exists='append',
-            index=False
-         )
-   print("Weeks imported successfully!")
-except SQLAlchemyError as e:
-   print(f"Database error: {e}")
+   try: 
+      with engine.connect() as connection:
+         with connection.begin():
+            week_df.to_sql(
+               'week',
+               con=connection,
+               if_exists='append',
+               index=False
+            )
+      print("Weeks imported successfully!")
+   except SQLAlchemyError as e:
+      print(f"Database error: {e}")
+
+if __name__ == "__main__":
+   main()
 
 
