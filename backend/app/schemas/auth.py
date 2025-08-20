@@ -2,7 +2,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 # EN: Schema for user registration request via API
-# BR: Esquema para... através da API
+# BR: Esquema para cadastro de usuário atravésvia da API
 class AuthRegisterRequest(BaseModel):
 
    email: EmailStr 
@@ -10,7 +10,7 @@ class AuthRegisterRequest(BaseModel):
    password: str
 
 # EN: Schema for user registration response via API
-# BR: Esquema para... através da API
+# BR: Esquema para resposta de cadastro de usuário via API
 class AuthRegisterResponse(BaseModel):
 
    id: int
