@@ -1,14 +1,16 @@
+from sqlalchemy import text
 from app.db import engine, Base
 import app.models
 
 import create_db
-from db import (
+
+from app.db_seed import (
     import_loader,
     seed_academic_year,
     seed_access_tier,
     seed_job_role,
     seed_payment_method,
-    seed_resource_item,
+    seed_resource_item_format,
     seed_resource_phase,
     seed_school_phase,
     seed_title,
@@ -20,48 +22,49 @@ from db import (
 def build_database():
     """EN: Build the dev database schema and insert seed data.
     BR: Cria o esquema do banco de dados e insere dados de seed."""
-    print("===| Dropping all tables |===")
-    Base.metadata.drop_all(bind=engine) 
-    print("===| Building database |===")
+    print("===| Nuking public schema (dev only) |===")
+    with engine.begin() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE;"))
+        conn.execute(text("CREATE SCHEMA public;"))
     
     print("Creating new tables...")
     create_db.main()
     
     print("Seeding academic years...")
-    seed_academic_year.main()
+    seed_academic_year()
     
     print("Seeding access tiers...")
-    seed_access_tier.main()
+    seed_access_tier()
     
     print("Seeding job roles ...")
-    seed_job_role.main()
+    seed_job_role()
     
     print("Seeding payment methods ...")
-    seed_payment_method.main()
+    seed_payment_method()
     
-    print("Seeding resource items...")
-    seed_resource_item.main()
+    print("Seeding resource item formats...")
+    seed_resource_item_format()
     
     print("Seeding resource phases...")
-    seed_resource_phase.main()
+    seed_resource_phase()
     
     print("Seeding school phases...")
-    seed_school_phase.main()
+    seed_school_phase()
     
     print("Seeding titles...")
-    seed_title.main()
+    seed_title()
     
     print("Seeding transaction statuses (statusses? stati?)...")
-    seed_transaction_status.main()
+    seed_transaction_status()
     
     print("Seeding user roles...")
-    seed_user_role.main()
+    seed_user_role()
     
     print("Seeding weeks...")
-    seed_week.main()
+    seed_week()
     
     print("Loading schools from file...")
-    import_loader.main()
+    import_loader()
     
     print("✅ Database build complete")
 

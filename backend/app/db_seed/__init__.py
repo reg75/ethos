@@ -1,0 +1,12 @@
+from .import_loader import main as import_loader
+from .seed_week import main as seed_week
+from .seed_academic_year import main as seed_academic_year
+from .seed_access_tier import main as seed_access_tier
+from .seed_job_role import main as seed_job_role
+from .seed_payment_method import main as seed_payment_method
+from .seed_resource_item_format import main as seed_resource_item_format
+from .seed_resource_phase import main as seed_resource_phase
+from .seed_school_phase import main as seed_school_phase
+from .seed_title import main as seed_title
+from .seed_transaction_status import main as seed_transaction_status
+from .seed_user_role import main as seed_user_role

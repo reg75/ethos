@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 from app.models.school import School
-from app.utils.parsers import parse_none, parse_int_or_none, parse_bool
+from app.utils.parsers import parse_none, parse_int_or_none
 import os
 
 load_dotenv()

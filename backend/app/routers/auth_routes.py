@@ -5,7 +5,7 @@ from app.db import get_db
 from app.schemas.auth import AuthRegisterRequest, AuthRegisterResponse 
 from app.services.auth_service import create_user, AuthRegisterRequest
 from app.services.token_service import create_verification_token
-from app.utils.auto_emails import send_verfication_email
+from app.utils.auto_emails import send_verification_email
 
 router = APIRouter(
    prefix="/auth",
@@ -20,7 +20,7 @@ def register_user(user: AuthRegisterRequest, db: Session = Depends(get_db)):
 
       token = create_verification_token(db, new_user.id)
 
-      send_verfication_email(to_email=new_user.email, token=token.token)
+      send_verification_email(to_email=new_user.email, token=token.token)
 
       return new_user
    

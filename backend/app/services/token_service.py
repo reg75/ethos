@@ -38,7 +38,7 @@ def create_verification_token(db: Session, user_id: int):
    """
    expiry_minutes = 4320 # 3 days / 3 dias
    
-   return create_token(db, user_id, "email_verification", expiry_minutes)
+   return create_token(db, user_id, "CONFIRM_EMAIL", expiry_minutes)
 
 
 def create_password_reset_token(db: Session, user_id: int):
@@ -48,7 +48,7 @@ def create_password_reset_token(db: Session, user_id: int):
    """
    expiry_minutes = 60 # One hour / uma hora
    
-   return create_token(db, user_id, "password_reset", expiry_minutes)
+   return create_token(db, user_id, "PASSWORD_RESET", expiry_minutes)
 
 def verify_token(db: Session, token_str: str, expected_purpose: str) -> Token:
    """
@@ -79,7 +79,7 @@ def verify_verification_token(db: Session, verification_token: str):
    EN: Verifies the validity, expiry, correct purpose of an email verification token. Returns token if valid.
    BR: Verifica validade, expiração e propósito correto de um token de verificação de e-mail. Retorna o token se válido.
    """  
-   expected_purpose = "email_verification"
+   expected_purpose = "CONFIRM_EMAIL"
    
    return verify_token(db=db, token_str=verification_token, expected_purpose=expected_purpose)
 
@@ -88,6 +88,6 @@ def verify_password_reset_token(db: Session, verification_token: str):
    EN: Verifies the validity, expiry, correct purpose of a password reset token. Returns token if valid.
    BR: Verifica validade, expiração e propósito correto de um token de redefinição de senha. Retorna o token se válido.
    """  
-   expected_purpose = "password_reset"
+   expected_purpose = "PASSWORD_RESET"
    
    return verify_token(db=db, token_str=verification_token, expected_purpose=expected_purpose)

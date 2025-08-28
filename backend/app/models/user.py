@@ -93,4 +93,3 @@ class UserLoginAttempt(Base):
    success = Column(Boolean, nullable=False)
    ip_address = Column(String(64))
    user_agent = Column(String(512))
-/
