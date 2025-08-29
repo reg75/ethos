@@ -14,4 +14,4 @@ def hash_token(token: str):
 
    token_hash = hashlib.sha256(token).hexdigest()
 
-   return token_hash # URL safe??
+   return token_hash

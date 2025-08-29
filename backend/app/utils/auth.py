@@ -48,3 +48,4 @@ def hash_validated_password(password: str) -> Union[str, str]:
       return hash_string(password)
    else:
       return result
+   

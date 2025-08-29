@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from sqlalchemy.orm import Session
 from app.models.user import Token, User 
-from app.utils import generate_token
+from app.utils import generate_token, hash_token
 from fastapi import HTTPException, status
 
 def create_token(db, user_id, purpose, expiry_minutes):
@@ -12,9 +12,13 @@ def create_token(db, user_id, purpose, expiry_minutes):
    
    now = datetime.now(timezone.utc) #Gets current time
 
-   token = Token(
+   raw_token = generate_token() # Sent via email
+
+   hashed_token = hash_token(raw_token) # Stored in db
+
+   token_row = Token(
       user_id=user_id,
-      token=generate_token(),
+      token_hash = hashed_token,
       purpose=purpose,
       created_at=now,
       expires_at=now + timedelta(minutes=expiry_minutes),
@@ -22,10 +26,11 @@ def create_token(db, user_id, purpose, expiry_minutes):
 
    # EN: Add token to database
    try:
-      db.add(token)
+      db.add(token_row)
       db.commit()
-      db.refresh(token)
-      return token
+      db.refresh(token_row)
+      return token_row,  raw_token
+   
    except Exception as e:
       db.rollback()
       raise e

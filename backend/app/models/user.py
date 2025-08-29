@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, CheckConstraint, Index
 from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
@@ -65,23 +65,30 @@ class UserRole(Base):
    is_active = Column(Boolean, default=True)
    sort_order = Column(Integer, default=0)
 
-# EN: Creates token table / BR:
+# EN: Creates token purpose table / BR:
 class TokenPurposeEnum(enum.Enum):
    CONFIRM_EMAIL = "confirm_email"
    FINISH_REGISTRATION = "finish_registration"
    PASSWORD_RESET = "password_reset"
 
+# EN: Creates token table / BR: Cria a tabela token
 class Token(Base):
    __tablename__ = "token"
 
    id = Column(Integer, primary_key=True)
-   user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+   user_id = Column(Integer, ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
    user_obj = relationship("User", backref="tokens")
-   token = Column(String(128), unique=True, nullable=False)
+   token_hash = Column(String(64), nullable=False, index=True)
    purpose = Column(SQLEnum(TokenPurposeEnum), nullable=False)
    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-   expires_at = Column(DateTime, nullable=False)
-   used = Column(Boolean, default=False)
+   expires_at = Column(DateTime, nullable=False, index=True)
+   used = Column(Boolean, default=False, index=True)
+   used_at = Column(DateTime)
+
+   __table_args__ = (
+   CheckConstraint ('expires_at > created_at', name="ck_token_expiry"),
+   Index("ix_token_user_purpose_used", "user_id", "purpose", "used")
+   )
 
 # EN: Creates user_login_attempt table / BR:
 class UserLoginAttempt(Base):
