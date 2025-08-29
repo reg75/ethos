@@ -30,6 +30,7 @@ class User(Base):
    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
    is_active = Column(Boolean, default=True)
    is_verified = Column(Boolean, default=False)
+   profile_complete = Column(Boolean, default=False)
    last_login = Column(DateTime, default=None)
    is_locked = Column(Boolean, default=False)
    locked_at = Column(DateTime, default=None)
