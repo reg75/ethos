@@ -61,7 +61,9 @@ def verify_token(db: Session, token_str: str, expected_purpose: str) -> Token:
    BR: Verifica validade, expiração e propósito de um token. Retorna o token se válido.
    """   
    
-   token = db.query(Token).filter_by(token=token_str).first()
+   token_hash = hash_token(token_str)
+
+   token = db.query(Token).filter_by(token_hash=token_hash).first()
    
    # Checks if it is a token
    if not token:

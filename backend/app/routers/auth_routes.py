@@ -31,4 +31,22 @@ def register_user(user: AuthRegisterRequest, background_tasks: BackgroundTasks, 
    except ValueError as e:
       raise HTTPException(status_code=409, detail=str(e))
    
+'''
+@router.post("/register", response_model=AuthRegisterResponse)
+def register_user(user: AuthRegisterRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+   try:
+      new_user = create_user(db, user)
+
+      token_row, raw_token = create_verification_token(db, new_user.id)
+
+      background_tasks.add_task(
+         send_verification_email,
+            to_email=new_user.email,
+            token=raw_token 
+      )
+
+      return new_user
    
+   except ValueError as e:
+      raise HTTPException(status_code=409, detail=str(e))
+'''

@@ -20,7 +20,7 @@ class AuthRegisterResponse(BaseModel):
    model_config = {
       "from_attributes": True
    }
-
+   
 # EN: Schema for login request  via API
 # BR: Esquema para... através da API
 class AuthLoginRequest(BaseModel):
