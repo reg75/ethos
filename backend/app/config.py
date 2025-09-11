@@ -2,3 +2,5 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
+
+FRONTEND_URL = "http://localhost:3000"

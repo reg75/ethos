@@ -54,7 +54,7 @@ def verify_user(db: Session, token_str: str) -> None:
            verification_token=token_str
            )
       
-      user = db.query(User).get(token.user_id)
+      user = db.get(User, token.user_id)
 
       if not user.is_verified:
            user.is_verified = True
