@@ -1,8 +1,12 @@
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+
 from sqlalchemy.orm import Session
+from fastapi import HTTPException, status
+
 from app.models.user import Token, User, TokenPurposeEnum 
 from app.utils import generate_token, hash_token
-from fastapi import HTTPException, status
+
 
 def create_token(db, user_id, purpose, expiry_minutes):
     """
@@ -54,6 +58,45 @@ def create_password_reset_token(db: Session, user_id: int):
     expiry_minutes = 60 # One hour / uma hora
    
     return create_token(db, user_id, TokenPurposeEnum.PASSWORD_RESET, expiry_minutes)
+
+@dataclass(frozen=True)
+class PeekResult:
+    used: bool
+    user_is_verified: bool
+    expires_at: datetime
+
+def peek_token(db: Session, token_str: str, expected_purpose: TokenPurposeEnum) -> PeekResult|None:
+    now = datetime.now(timezone.utc)
+    
+    token_hash = hash_token(token_str)
+
+    token = (
+        db.query(Token)
+        .filter_by(token_hash=token_hash,
+                   purpose=expected_purpose)
+        .first()
+    )
+
+    if token is None or token.expires_at < now:
+        return None
+    
+    return PeekResult(
+        used=token.used,
+        user_is_verified=token.user.is_verified,
+        expires_at=token.expires_at,
+    )
+
+def peek_verification_token(db: Session, token_str: str) -> PeekResult | None:
+
+    expected_purpose = TokenPurposeEnum.CONFIRM_EMAIL
+
+    return peek_token(db=db, token_str=token_str, expected_purpose=expected_purpose)
+
+def peek_password_reset_token(db: Session, token_str: str) -> PeekResult | None:
+
+    expected_purpose = TokenPurposeEnum.PASSWORD_RESET
+
+    return peek_token(db=db, token_str=token_str, expected_purpose=expected_purpose)
 
 def verify_token(db: Session, token_str: str, expected_purpose: TokenPurposeEnum) -> Token:
     """
