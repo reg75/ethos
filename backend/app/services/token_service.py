@@ -6,6 +6,7 @@ from fastapi import HTTPException, status
 
 from app.models.user import Token, User, TokenPurposeEnum 
 from app.utils import generate_token, hash_token
+from app.exceptions import VerificationError, TokenNotFoundError, TokenExpiredError, TokenAlreadyUsedError
 
 
 def create_token(db, user_id, purpose, expiry_minutes):
@@ -115,9 +116,14 @@ def verify_token(db: Session, token_str: str, expected_purpose: TokenPurposeEnum
         .first()
     )
 
-    # Checks if it is a token
-    if not token or token.used or token.expires_at < now:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Invalid or expired token!")
+    if not token:
+        raise TokenNotFoundError()
+    
+    if token.used:
+        raise TokenAlreadyUsedError()
+    
+    if token.expires_at < now:
+        raise TokenExpiredError()
    
     return token
 
