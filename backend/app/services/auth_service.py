@@ -63,3 +63,5 @@ def verify_user(db: Session, token_str: str) -> None:
       token.used_at = now
       
       db.commit()
+
+def login_user

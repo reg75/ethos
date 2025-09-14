@@ -83,7 +83,7 @@ def peek_token(db: Session, token_str: str, expected_purpose: TokenPurposeEnum) 
     
     return PeekResult(
         used=token.used,
-        user_is_verified=token.user.is_verified,
+        user_is_verified=token.user_obj.is_verified,
         expires_at=token.expires_at,
     )
 

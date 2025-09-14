@@ -9,12 +9,11 @@ class TokenNotFoundError(VerificationError):
     pass
 
 class TokenAlreadyUsedError(VerificationError):
-     """EN: Raised when the token has already been used.
+    """EN: Raised when the token has already been used.
     BR: Lançado quando o token já foi utilizado."""
-    pass
+    pass 
 
 class TokenExpiredError(VerificationError):
     """EN: Raised when the token has expired.
     BR: Lançado quando o token expirou."""
     pass
-

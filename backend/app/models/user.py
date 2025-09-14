@@ -80,10 +80,10 @@ class Token(Base):
    user_obj = relationship("User", backref="tokens")
    token_hash = Column(String(64), nullable=False, index=True)
    purpose = Column(SQLEnum(TokenPurposeEnum), nullable=False)
-   created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-   expires_at = Column(DateTime, nullable=False, index=True)
+   created_at = Column(DateTime(timezone=True), nullable=False)
+   expires_at = Column(DateTime(timezone=True), nullable=False, index=True)
    used = Column(Boolean, default=False, index=True)
-   used_at = Column(DateTime)
+   used_at = Column(DateTime(timezone=True))
 
    __table_args__ = (
    CheckConstraint ('expires_at > created_at', name="ck_token_expiry"),

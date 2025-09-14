@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.config import FRONTEND_URL
-from app.schemas.auth import AuthRegisterRequest, AuthRegisterResponse 
+from app.schemas.auth import AuthRegisterRequest, AuthRegisterResponse, AuthLoginRequest, AuthLoginResponse
 from app.services.auth_service import create_user, verify_user
 from app.services.token_service import create_verification_token, peek_verification_token
 from app.utils.auto_emails import send_verification_email
@@ -69,3 +69,7 @@ def verify_email(token: str, db: Session = Depends(get_db)):
          logger.info("Verification failed", extra={"error": str(e)})
          return redirect(ERROR_URL)
    
+@router.post("/login", response_model=AuthLoginResponse)
+def user_login(email: str, raw_password: str, db: Session = Depends(get_db)):
+   try:
+      login_attempt = 
