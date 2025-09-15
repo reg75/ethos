@@ -17,3 +17,30 @@ class TokenExpiredError(VerificationError):
     """EN: Raised when the token has expired.
     BR: Lançado quando o token expirou."""
     pass
+
+class AuthError(Exception):
+    """
+    EN: Base class for authentication-related errors (never shown to the user).
+    BR: Classe base para erros de autenticação (nunca exibidos ao usuário).
+    """
+    pass
+
+class AuthFailed(AuthError):
+    """
+    EN: Generic authentication failure (bad credentials or unverified).
+    BR: Falha genérica de autenticação (credenciais inválidas ou não verificado).
+    """
+    pass
+
+class UnverifiedUser(AuthError):
+    """
+    EN: User exists but is not verified (map to same 401 response).
+    BR: Usuário existe, mas não está verificado (mesma resposta 401).
+    """
+    pass
+
+class AccountLocked(AuthError):
+    """
+    EN: Account locked due to policy (throttling, admin lock, etc.).
+    BR: Conta bloqueada por política (limite, bloqueio administrativo, etc.).
+    """
