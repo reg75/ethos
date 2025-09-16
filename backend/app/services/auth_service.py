@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 from app.models.user import User
-from app.schemas.auth import AuthRegisterRequest
+from app.schemas.auth import AuthRegisterRequest, AuthLoginRequest
 from app.utils.auth import validate_password, hash_string
 from app.services.token_service import verify_verification_token
 
@@ -64,4 +64,7 @@ def verify_user(db: Session, token_str: str) -> None:
       
       db.commit()
 
-def login_user
+def login_user(db: Session, user: AuthLoginRequest):
+     user = db.get(User)
+
+     if 

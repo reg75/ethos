@@ -27,6 +27,7 @@ class AuthLoginRequest(BaseModel):
 
    email: EmailStr 
    password: str
+   remember_me: bool = False
    
 # EN: Schema to get user details via API
 # BR: Esquema para... através da API
@@ -37,7 +38,7 @@ class AuthMeResponse(BaseModel):
    first_name: Optional[str] = None
    last_name: Optional[str] = None
    email: EmailStr 
-   user_role: int
+   user_role_id: int
    is_active: bool
    
    model_config = {
@@ -48,23 +49,14 @@ class AuthMeResponse(BaseModel):
 # BR: Esquema para... através da API
 class AuthLoginResponse(BaseModel):
 
-   access_token: str 
-   token_type: str="bearer"
+   ok: bool = True
    user: AuthMeResponse
-
-   model_config = {
-      "from_attributes": True
-    }
 
 # EN: Schema to get request logout via API
 # BR: Esquema para... através da API
 class AuthLogoutResponse(BaseModel):
 
-   detail: str="Successfully logged out!"
-      
-   model_config = {
-      "from_attributes": True
-   }
+   ok: bool = True
 
 # EN: Schema for password reset request  via API
 # BR: Esquema para... através da API
