@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, CheckConstraint, Index
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, CheckConstraint, Index, func
 from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
@@ -89,15 +89,3 @@ class Token(Base):
    CheckConstraint ('expires_at > created_at', name="ck_token_expiry"),
    Index("ix_token_user_purpose_used", "user_id", "purpose", "used")
    )
-
-# EN: Creates user_login_attempt table / BR:
-class UserLoginAttempt(Base):
-   __tablename__ = "user_login_attempt"
-
-   id = Column(Integer, primary_key=True)
-   user_id = Column(Integer, ForeignKey('user.id'), nullable=False, index=True)
-   user_obj = relationship("User", backref="login_attempts")
-   attempt_time = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-   success = Column(Boolean, nullable=False)
-   ip_address = Column(String(64))
-   user_agent = Column(String(512))

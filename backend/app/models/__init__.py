@@ -5,3 +5,4 @@ from .invoice import Invoice
 from .resource_item import ResourceItem
 from .subscription import Subscription
 from .transaction import Transaction
+from .loginattempt import UserLoginAttempt
