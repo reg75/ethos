@@ -1,8 +1,16 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Index, func
 from sqlalchemy.orm import relationship
 
+from app.db import Base
+
 # EN: Creates user_login_attempt table / BR:
 class UserLoginAttempt(Base):
+    """
+    EN: Represents a user login session. Stores only a hash of the session key,
+    linked to the user, with expiry/revocation timestamps and client metadata.
+    BR: Representa uma sessão de login de usuário. Armazena apenas o hash da chave da sessão,
+    vinculado 
+    """
    __tablename__ = "user_login_attempt"
 
    id = Column(Integer, primary_key=True)
